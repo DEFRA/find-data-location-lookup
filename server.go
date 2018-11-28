@@ -83,6 +83,12 @@ func serve() http.Handler {
 
 		w.Header().Set("Content-Type", "application/json; charset=utf-8")
 		w.Header().Set("X-Content-Type-Options", "nosniff")
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set(
+			"Access-Control-Allow-Headers",
+			"Content-Type,access-control-allow-origin, access-control-allow-headers",
+		)
+
 		w.WriteHeader(http.StatusOK)
 
 		header := ResponseHeader{}
