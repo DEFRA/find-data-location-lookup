@@ -24,15 +24,16 @@ func main() {
 	records := csvFileToRecords(filepath)
 	for _, record := range records {
 		// Find an existing list in the tree, if not there add a new one
-		node, exists := t.Find(record.Normalised)
-		var l []LocationRecord
+		node, exists := locationTrie.Find(record.Normalised)
+		var location []LocationRecord
+
 		if !exists {
-			l = []LocationRecord{record}
+			location = []LocationRecord{record}
 		} else {
-			l = node.Meta().([]LocationRecord)
-			l = append(l, record)
+			location = node.Meta().([]LocationRecord)
+			location = append(location, record)
 		}
-		t.Add(record.Normalised, l)
+		locationTrie.Add(record.Normalised, location)
 
 		count = count + 1
 	}

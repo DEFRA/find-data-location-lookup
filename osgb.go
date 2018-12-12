@@ -8,12 +8,14 @@ import (
 
 var trans osgb.CoordinateTransformer
 
-// MBRToLatLon converts the locationrecord's osgb to latlon
+// MBRToLatLon converts the LocationRecord's osgb to WGS84
+// latitude and longitude
 func MBRToLatLon(loc LocationRecord) LocationRecord {
 
 	if trans == nil {
 		trans, _ = osgb.NewOSTN15Transformer()
 	}
+
 	// Min
 	minNG := osgb.NewOSGB36Coord(loc.Xmin, loc.Ymin, 0.0)
 	gpsCoord, err := trans.FromNationalGrid(minNG)

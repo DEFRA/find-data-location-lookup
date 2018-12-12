@@ -15,7 +15,7 @@ type SearchResults = map[string]LocationRecords
 // LocationRecord represents a single row in the CSV files
 // Many of the CSV fields are ignored as irrelevant
 type LocationRecord struct {
-	Id              string  `json:"-"`
+	ID              string  `json:"-"`
 	Name            string  `json:"name"`
 	Normalised      string  `json:"-"`
 	GlobalType      string  `json:"-"`
@@ -36,7 +36,7 @@ type LocationRecord struct {
 func NewLocationRecord(row []string) LocationRecord {
 
 	loc := LocationRecord{
-		Id:              row[0],
+		ID:              row[0],
 		Name:            row[2],
 		Normalised:      normalise(row[2]),
 		GlobalType:      row[6],
@@ -75,9 +75,9 @@ func (l LocationRecord) String() string {
 	return fmt.Sprintf("{Name:%s, %s\nMin: %f,%f\nMax:%f,%f }\n", l.Name, l.District, l.Xmin, l.Ymin, l.Xmax, l.Ymax)
 }
 
-// GetTypeDisplay returns the type of the location
+// GetTypeName returns the type of the location
 // record provided.
-func (l LocationRecord) GetTypeDisplay() string {
+func (l LocationRecord) GetTypeName() string {
 	if l.GlobalType == "populatedPlace" {
 		return "Place"
 	}

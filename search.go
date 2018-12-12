@@ -7,7 +7,7 @@ import (
 	"github.com/derekparker/trie"
 )
 
-var t = trie.New()
+var locationTrie = trie.New()
 
 var locationTypeWeighting = map[string]int{
 	"City":                     11,
@@ -28,16 +28,18 @@ func getSearchResults(term string) SearchResults {
 
 	counter := 0
 
-	res := t.PrefixSearch(strings.ToLower(term))
-	for _, item := range res {
-		node, _ := t.Find(item)
+	results := locationTrie.PrefixSearch(strings.ToLower(term))
+	for _, item := range results {
+		node, _ := locationTrie.Find(item)
 		meta := node.Meta()
 		recordList := meta.([]LocationRecord)
 
-		for _, lr := range recordList {
-			t := lr.GetTypeDisplay()
-			lr = MBRToLatLon(lr)
-			searchResults[t] = append(searchResults[t], lr)
+		for _, locationRecord := range recordList {
+			typeName := locationRecord.GetTypeName()
+			locationRecord = MBRToLatLon(locationRecord)
+
+			searchResults[typeName] = append(searchResults[typeName], locationRecord)
+
 			counter++
 			if counter == MaxResults {
 				return sortSearchResults(searchResults)
