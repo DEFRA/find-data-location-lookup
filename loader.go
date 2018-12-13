@@ -23,12 +23,13 @@ func csvFileToRecords(csvFile string) []LocationRecord {
 			log.Fatal(err)
 		}
 
-		record := NewLocationRecord(row)
-		if record.GlobalType != "populatedPlace" {
+		// GlobalType is in cell index 6, no point parsing if we
+		// intend to ignore it
+		if row[6] != "populatedPlace" {
 			continue
 		}
 
-		records = append(records, record)
+		records = append(records, NewLocationRecord(row))
 	}
 
 	return records

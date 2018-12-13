@@ -66,6 +66,9 @@ func runserver() {
 	logger.Println("Server stopped")
 }
 
+// ResponseHeader contains the results of the query for transforming into JSON and
+// writing back to the client. If the query failed, then IsError will be set to true
+// and a message written to the Message field.
 type ResponseHeader struct {
 	IsError bool   `json:"error"`
 	Message string `json:"message"`
