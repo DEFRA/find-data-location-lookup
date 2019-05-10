@@ -96,7 +96,7 @@ func serve() http.Handler {
 
 		header := ResponseHeader{}
 
-		if q == nil || len(q[0]) < 4 {
+		if q == nil || len(q[0]) < 3 {
 			header.IsError = true
 			header.Message = "q parameter is required and must be more than 3 chars"
 		} else {
